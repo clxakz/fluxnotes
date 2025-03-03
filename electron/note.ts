@@ -39,11 +39,12 @@ export class Note {
     async save() {
         const db = await readDb();
 
+        
         db[this.name] = {
             icon: this.icon ?? db[this.name]?.icon,
             text: this.text,
         };
-
+        
         await writeDb(db);
     }
 

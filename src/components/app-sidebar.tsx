@@ -94,15 +94,24 @@ type TabType = {
 }
 
 function SidebarTab({ tab }: { tab:  TabType}) {
-  const { NoteIcons, setActiveTab, activeTab } = useGlobalState();
-  const { deleteTab } = useNote();
+  const { NoteIcons, setActiveTab, activeTab, editorText } = useGlobalState();
+  const { deleteTab, saveNote } = useNote();
   const activeTabStyle = activeTab === tab.name ? "bg-sidebar-accent" : "bg-transparent"
+
+
+  // Save current tab before switching to another
+  function switchTab() {
+    if (activeTab !== '' && editorText.trim() !== '') {
+      saveNote(activeTab, editorText);
+    }
+    setActiveTab(tab.name);
+  }
 
   return (
       <SidebarMenuItem>
           <SidebarMenuButton
               variant={"outline"}
-              onClick={() => setActiveTab(tab.name)}
+              onClick={switchTab}
               className={twMerge("transition duration-100", activeTabStyle)}>
               {NoteIcons[tab.icon]}
               <span>{tab.name}</span>

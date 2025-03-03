@@ -9,8 +9,8 @@ import { useNote } from "@/components/note-provider";
 
 const defaultIcon: string = "Paperclip";
 export default function NewNoteDialog({ children }: { children: ReactNode }) {
-    const { newNoteDialogOpen, toggleNewNoteDialog, NoteIcons, hasTab, setActiveTab } = useGlobalState();
-    const { createNote } = useNote();
+    const { newNoteDialogOpen, toggleNewNoteDialog, NoteIcons, hasTab, setActiveTab, activeTab, editorText } = useGlobalState();
+    const { createNote, saveNote } = useNote();
     const noteIcons = Object.keys(NoteIcons);
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -24,6 +24,12 @@ export default function NewNoteDialog({ children }: { children: ReactNode }) {
     function onCreate() {
         if (newNoteName.trim() !== '' && !hasTab(newNoteName)) {
             createNote(newNoteName, newNoteIcon);
+            
+            // Save current tab before switching to another
+            // if (activeTab !== '' && editorText.trim() !== '') {
+            //     saveNote(activeTab, editorText);
+            // }
+
             toggleNewNoteDialog();
             setActiveTab(newNoteName);
         } else if (hasTab(newNoteName)) {
@@ -31,7 +37,7 @@ export default function NewNoteDialog({ children }: { children: ReactNode }) {
         } else {
             setErrorMessage("A note name cannot be empty");
         }
-    }
+    } 
 
 
     useEffect(() => {

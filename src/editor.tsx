@@ -21,7 +21,7 @@ function Editor() {
 
   return (
     <div className="w-full h-full overflow-hidden pl-1">
-      <textarea value={editorText} onChange={(e) => insertText(e.currentTarget.value)} wrap="off" className="h-full w-full resize-none outline-none border-none"/>
+      <textarea value={editorText} onChange={(e) => insertText(e.currentTarget.value)} wrap="off" className="h-full outline-1 w-full resize-none outline-none border-none"/>
     </div>
   );
 }

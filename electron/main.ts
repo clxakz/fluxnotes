@@ -60,33 +60,34 @@ app.on('activate', () => {
 app.whenReady().then(() => {
     createWindow();
 
-    ipcMain.on("note-create", (_event, name: string, icon: string) => {
+    ipcMain.once("note-create", (_event, name: string, icon: string) => {
+        console.log("on create main: ", name, icon)
         const note = new Note(name, icon);
         note.save();
-    })
+    });
 
-    ipcMain.on("note-savetext", (_event, name: string, text: string) => {
-      const note = new Note(name, undefined,text);
-      note.save();
-    })
+    ipcMain.once("note-savetext", (_event, name: string, text: string) => {
+        const note = new Note(name, undefined, text);
+        note.save();
+    });
 
     ipcMain.handle("note-gettext", async (_event, name: string) => {
-      const note = new Note(name);
-      const result = await note.load();
-      return result
-    })
+        const note = new Note(name);
+        const result = await note.load();
+        return result;
+    });
 
     ipcMain.handle("loadtabs", async (_event) => {
-      return await loadTabs();
-    })
+        return await loadTabs();
+    });
 
-    ipcMain.on("note-delete", async (_event, name: string) => {
-      const note = new Note(name);
-      await note.delete();
-    })
+    ipcMain.once("note-delete", async (_event, name: string) => {
+        const note = new Note(name);
+        await note.delete();
+    });
 
-    ipcMain.on("note-edit", async (_event, name: string, newname: string, newicon: string) => {
-      const note = new Note(name);
-      await note.edit(newname, newicon);
+    ipcMain.once("note-edit", async (_event, name: string, newname: string, newicon: string) => {
+        const note = new Note(name);
+        await note.edit(newname, newicon);
     })
 });
