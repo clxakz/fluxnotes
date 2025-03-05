@@ -58,13 +58,12 @@ export class Note {
         const note = db[this.name];
 
         delete db[this.name];
-        db[newname] = { 
+        db[newname] = {
             icon: newicon,
             text: note.text,
         };
 
         await writeDb(db);
-        
     }
 
     async delete() {
