@@ -56,6 +56,11 @@ export default function NewNoteDialog({ children }: { children: ReactNode }) {
         // Handle keyboard shortcuts within new note dialog
         const handleKeyDown = (event: KeyboardEvent) => {
             // Create a note when enter is pressed
+            if (event.key === "Enter" && event.target instanceof HTMLTextAreaElement) {
+                return;
+            }
+        
+            // Create a note when Enter is pressed elsewhere
             if (event.key === "Enter") {
                 event.preventDefault();
                 onCreate();

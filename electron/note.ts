@@ -1,10 +1,9 @@
 import Store from 'electron-store';
-// import { app, desktopCapturer } from 'electron';
-import { join } from 'path'; 
+// import { join } from 'path'; 
 
-// const desktopPath = app.getPath('desktop');
-const SavePath = join("c:", "users", "ivox", "desktop")
-const store = new Store({ cwd: SavePath, name: "notesDB" });
+
+// const SavePath = join("c:", "users", "ivox", "desktop")
+const store = new Store({ /*cwd: SavePath,*/ name: "notesDB" });
 
 
 type NoteType = {

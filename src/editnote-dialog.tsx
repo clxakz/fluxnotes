@@ -25,27 +25,29 @@ export default function EditNoteDialog({ children, tab }: { children: ReactNode,
     // Handle editing a note
     const [newNoteName, setNewNoteName] = useState<string>('');
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
-    const [newNoteIcon, setNewNoteIcon] = useState<string>(defaultIcon);
+    const [newNoteIcon, setNewNoteIcon] = useState<string>('');
 
     function onSave() {
-        if (newNoteName.trim() !== '' && !hasTab(newNoteName)) {
-            editNote(tab.name, newNoteName, newNoteIcon);
-            editTab(tab.name, newNoteName, newNoteIcon);
+        if (!hasTab(newNoteName)) {
+            // console.log("name " + newNoteIcon, "icon " + newNoteName)
+            editNote(tab.name, newNoteName.trim() === '' ? tab.name : newNoteName, newNoteIcon === '' ? tab.icon : newNoteIcon);
+            editTab(tab.name, newNoteName.trim() === '' ? tab.name : newNoteName, newNoteIcon === '' ? tab.icon : newNoteIcon);
             toggleEditNoteDialog();
             setActiveTab(newNoteName);
         } else if (hasTab(newNoteName)) {
             setErrorMessage(`Note ${newNoteName} already exists`);
-        } else {
-            setErrorMessage("A note name cannot be empty");
         }
+        // else {
+        //     setErrorMessage("A note name cannot be empty");
+        // }
     }
 
 
     useEffect(() => {
         // Reset values on dialog close
-        if (!editNoteDialogOpen) { 
+        if (!editNoteDialogOpen) {
             setErrorMessage(undefined);
-            setNewNoteIcon(defaultIcon);
+            setNewNoteIcon('');
             setNewNoteName('');
         }
 
@@ -65,7 +67,7 @@ export default function EditNoteDialog({ children, tab }: { children: ReactNode,
 
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [editNoteDialogOpen, newNoteName])
+    }, [editNoteDialogOpen, newNoteName, newNoteIcon])
 
     return (
         <Dialog open={editNoteDialogOpen} onOpenChange={toggleEditNoteDialog}>
