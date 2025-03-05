@@ -101,7 +101,7 @@ function SidebarTab({ tab }: { tab:  TabType}) {
 
   // Save current tab before switching to another
   function switchTab() {
-    if (activeTab !== '' && editorText.trim() !== '') {
+    if (activeTab !== '' && editorText?.trim() !== '') {
       saveNote(activeTab, editorText);
     }
     setActiveTab(tab.name);

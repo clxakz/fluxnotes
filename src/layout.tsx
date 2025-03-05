@@ -25,6 +25,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
             // Save note with ctrl+s
             else if (event.ctrlKey && event.key === 's') {
+                // console.log("saving note: ", activeTab, editorText);
                 saveNote(activeTab, editorText);
             }
         };

@@ -25,8 +25,8 @@ export default function NewNoteDialog({ children }: { children: ReactNode }) {
         if (newNoteName.trim() !== '' && !hasTab(newNoteName)) {
             createNote(newNoteName, newNoteIcon);
             
-            // Save current tab before switching to another
-            // if (activeTab !== '' && editorText.trim() !== '') {
+            // Save current tab before switching to another <--- NOT WORKING FIX!!
+            // if (activeTab !== '' && editorText?.trim() !== '') {
             //     saveNote(activeTab, editorText);
             // }
 

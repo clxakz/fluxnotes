@@ -1,28 +1,20 @@
-import { PathLike } from 'fs';
-import { join } from 'path';
-import fs from "node:fs/promises";
+import Store from 'electron-store';
+// import { app, desktopCapturer } from 'electron';
+import { join } from 'path'; 
 
-const savePath: PathLike = join("C:/Users/ivox/desktop", "notesdb.json");
+// const desktopPath = app.getPath('desktop');
+const SavePath = join("c:", "users", "ivox", "desktop")
+const store = new Store({ cwd: SavePath, name: "notesDB" });
 
 
-async function readDb() {
-    try {
-        const data = await fs.readFile(savePath, "utf8");
-        return JSON.parse(data) || {};
-    } catch (error: any) {
-        if (error.code === "ENOENT") return {};
-        throw error;
-    }
+type NoteType = {
+    icon?: string;
+    text?: string;
 }
 
 
-async function writeDb(data: Record<string, { icon?: string; text?: string }>) {
-    await fs.writeFile(savePath, JSON.stringify(data, null, 2));
-}
-
-export async function loadTabs() {
-    const data = await readDb();
-    return data;
+export async function loadTabs(): Promise<Record<string, NoteType>> {
+    return store.get('notes', {}) as Record<string, NoteType>;
 }
 
 export class Note {
@@ -37,24 +29,23 @@ export class Note {
     }
 
     async save() {
-        const db = await readDb();
+        const db: Record<string, NoteType> = await loadTabs();
 
-        
         db[this.name] = {
             icon: this.icon ?? db[this.name]?.icon,
             text: this.text,
         };
-        
-        await writeDb(db);
+
+        store.set('notes', db);
     }
 
     async load() {
-        const db = await readDb();
-        return db[this.name] ?? null
+        const db: Record<string, NoteType> = await loadTabs();
+        return db[this.name];
     }
 
     async edit(newname: string, newicon: string) {
-        const db = await readDb();
+        const db: Record<string, NoteType> = await loadTabs();
         const note = db[this.name];
 
         delete db[this.name];
@@ -63,12 +54,12 @@ export class Note {
             text: note.text,
         };
 
-        await writeDb(db);
+        store.set('notes', db);
     }
 
     async delete() {
-        const db = await readDb();
+        const db: Record<string, NoteType> = await loadTabs();
         delete db[this.name];
-        await writeDb(db);
+        store.set('notes', db);
     }
 }
