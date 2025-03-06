@@ -29,11 +29,10 @@ export default function EditNoteDialog({ children, tab }: { children: ReactNode,
 
     function onSave() {
         if (!hasTab(newNoteName)) {
-            // console.log("name " + newNoteIcon, "icon " + newNoteName)
             editNote(tab.name, newNoteName.trim() === '' ? tab.name : newNoteName, newNoteIcon === '' ? tab.icon : newNoteIcon);
             editTab(tab.name, newNoteName.trim() === '' ? tab.name : newNoteName, newNoteIcon === '' ? tab.icon : newNoteIcon);
             toggleEditNoteDialog();
-            setActiveTab(newNoteName);
+            setActiveTab(newNoteName.trim() === '' ? tab.name : newNoteName);
         } else if (hasTab(newNoteName)) {
             setErrorMessage(`Note ${newNoteName} already exists`);
         }

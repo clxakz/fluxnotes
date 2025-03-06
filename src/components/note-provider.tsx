@@ -14,7 +14,7 @@ type NoteContextType = {
 const NoteContext = createContext<NoteContextType | undefined>(undefined);
 
 export default function NoteProvider({ children }: { children: ReactNode }) {
-    const { addTab, removeTab, clearEditor, setActiveTab } = useGlobalState();
+    const { addTab, removeTab, clearEditor, setActiveTab, configSet } = useGlobalState();
 
     const createNote = (name: string, icon: string) => {
         window.api.createNote(name, icon);
@@ -42,6 +42,7 @@ export default function NoteProvider({ children }: { children: ReactNode }) {
     const deleteTab = async (name: string) => {
         clearEditor();
         setActiveTab('');
+        configSet("lastactivetab", null);
         await window.api.deleteTab(name);
         removeTab(name);
     }

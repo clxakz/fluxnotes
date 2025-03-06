@@ -24,7 +24,7 @@ import EditNoteDialog from "@/editnote-dialog"
 
 
 export function AppSidebar() {
-    const { openSidebar, tabs, addTab, hasTab, configGet, configSet } = useGlobalState();
+    const { openSidebar, tabs, addTab, hasTab, configGet, configSet, activeTab, setActiveTab } = useGlobalState();
     const { loadTabs, editNote, saveNote } = useNote();
 
     // Load Readme note on first startup
@@ -44,6 +44,7 @@ export function AppSidebar() {
         handle();
     }, []);
 
+
     // Load all tabs on startup
     useEffect(() => {
       async function handle() {
@@ -54,10 +55,26 @@ export function AppSidebar() {
                   addTab({ name, icon });
               }
           });
+
+          // Open last active tab
+          const lastTab = await configGet("lastactivetab");
+          setActiveTab(lastTab ?? '');
       }
 
       handle();
     }, [])
+
+
+    // Save last open tab to config
+    useEffect(() => {
+        // window.api.onGetLastActiveTab(() => {
+        //     console.log("received");
+        //     window.api.sendLastActiveTab(activeTab);
+        // });
+
+        if (activeTab !== '') { configSet("lastactivetab", activeTab) };
+
+    }, [activeTab]);
 
     return (
       <Sidebar collapsible="icon" onMouseEnter={openSidebar}>

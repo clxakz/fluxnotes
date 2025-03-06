@@ -34,5 +34,7 @@ interface Window {
     editNote: (name: string, newname: string, newicon: string) => void;
     configSet: (key: string, value: any) => void;
     configGet: (key: string) => Promise<any>;
+    // onGetLastActiveTab: (callback: () => void) => void;
+    // sendLastActiveTab: (tab: string) => void;
   }
 }
