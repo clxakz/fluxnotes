@@ -7,4 +7,6 @@ contextBridge.exposeInMainWorld("api", {
     loadTabs: () => ipcRenderer.invoke("loadtabs"),
     deleteTab: (name: string) => ipcRenderer.send("note-delete", name),
     editNote: (name: string, newname: string, newicon: string) => ipcRenderer.send("note-edit", name, newname, newicon),
+    configSet: (key: string, value: any) => ipcRenderer.send("config-set", key, value),
+    configGet: (key: string) => ipcRenderer.invoke("config-get", key),
 })

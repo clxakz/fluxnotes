@@ -29,6 +29,8 @@ type GlobalStateContextType = {
     toggleEditNoteDialog: () => void;
     sidebarCanClose: boolean;
     setSidebarCanClose: (state: boolean) => void;
+    configSet: (key: string, value: any) => void;
+    configGet: (key: string) => any;
 }
 
 
@@ -62,13 +64,16 @@ export default function GlobalStateProvider({ children }: {children: ReactNode})
     const insertText = (text: string) => setText(text);
     const clearEditor = () => setText('');
 
+    const configSet = (key: string, value: any) => window.api.configSet(key, value);
+    const configGet = async (key: string) => { return await window.api.configGet(key) };
+
     const NoteIcons = {
         Paperclip: <Paperclip/>,
         Scroll: <Scroll />
     }
 
     return (
-        <GlobalStateContext.Provider value={{ editTab, sidebarCanClose, setSidebarCanClose, editNoteDialogOpen, toggleEditNoteDialog, editorText, insertText, clearEditor, tabs, addTab, removeTab, hasTab, NoteIcons, toggleSettings, settingsOpen, toggleNewNoteDialog, newNoteDialogOpen, openSidebar, closeSidebar, setActiveTab, activeTab }}>
+        <GlobalStateContext.Provider value={{ configGet, configSet, editTab, sidebarCanClose, setSidebarCanClose, editNoteDialogOpen, toggleEditNoteDialog, editorText, insertText, clearEditor, tabs, addTab, removeTab, hasTab, NoteIcons, toggleSettings, settingsOpen, toggleNewNoteDialog, newNoteDialogOpen, openSidebar, closeSidebar, setActiveTab, activeTab }}>
             {children}
         </GlobalStateContext.Provider>
     );

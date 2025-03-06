@@ -24,19 +24,36 @@ import EditNoteDialog from "@/editnote-dialog"
 
 
 export function AppSidebar() {
-    const { openSidebar, tabs, addTab, hasTab } = useGlobalState();
-    const { loadTabs } = useNote();
+    const { openSidebar, tabs, addTab, hasTab, configGet, configSet } = useGlobalState();
+    const { loadTabs, editNote, saveNote } = useNote();
+
+    // Load Readme note on first startup
+    useEffect(() => {
+        async function handle() {
+            const result = await configGet("firststartup");
+
+            if (!result) {
+              addTab({ name: "Readme", icon: "Paperclip" });
+              saveNote("Readme", "Thank's for installing FLuxnotes! Create your first note by pressing the plus button\nin the sidebar or using ctrl+n");
+              editNote("Readme", "Readme", "Paperclip");
+              
+              configSet("firststartup", true);
+            }
+        }
+
+        handle();
+    }, []);
 
     // Load all tabs on startup
     useEffect(() => {
       async function handle() {
-        const result = await loadTabs();
+          const result = await loadTabs();
 
-        Object.entries(result).forEach(([name, { icon }]) => {
-          if (!hasTab(name)) {
-            addTab({name, icon});
-          }
-        });
+          Object.entries(result).forEach(([name, { icon }]) => {
+              if (!hasTab(name)) {
+                  addTab({ name, icon });
+              }
+          });
       }
 
       handle();
@@ -55,7 +72,7 @@ export function AppSidebar() {
           </SidebarGroup>
         </SidebarHeader>
 
-        <SidebarContent>
+        <SidebarContent className="overflow-hidden">
           <SidebarGroup>
             <SidebarGroupContent>
               <SidebarMenu>

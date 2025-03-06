@@ -2,6 +2,8 @@ import { app, BrowserWindow, ipcMain } from 'electron'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import { loadTabs, Note } from './note'
+import Store from 'electron-store';
+const store = new Store({ name: "config" });
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 process.env.APP_ROOT = path.join(__dirname, '..')
@@ -60,13 +62,13 @@ app.on('activate', () => {
 app.whenReady().then(() => {
     createWindow();
 
-    ipcMain.once("note-create", (_event, name: string, icon: string) => {
+    ipcMain.on("note-create", (_event, name: string, icon: string) => {
         console.log("on create main: ", name, icon)
         const note = new Note(name, icon);
         note.save();
     });
 
-    ipcMain.once("note-savetext", (_event, name: string, text: string) => {
+    ipcMain.on("note-savetext", (_event, name: string, text: string) => {
         const note = new Note(name, undefined, text);
         note.save();
     });
@@ -81,13 +83,22 @@ app.whenReady().then(() => {
         return await loadTabs();
     });
 
-    ipcMain.once("note-delete", async (_event, name: string) => {
+    ipcMain.on("note-delete", async (_event, name: string) => {
         const note = new Note(name);
         await note.delete();
     });
 
-    ipcMain.once("note-edit", async (_event, name: string, newname: string, newicon: string) => {
+    ipcMain.on("note-edit", async (_event, name: string, newname: string, newicon: string) => {
         const note = new Note(name);
         await note.edit(newname, newicon);
     })
+
+    ipcMain.on("config-set", (_event, key: string, value: any) => {
+        store.set(key, value);
+    });
+
+    ipcMain.handle("config-get", async (_event, key: string) => {
+        console.log("getting")
+        return await store.get(key);
+    });
 });

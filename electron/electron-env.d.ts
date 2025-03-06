@@ -32,5 +32,7 @@ interface Window {
     loadTabs: () => Promise<Record<string, { icon: string }>>;
     deleteTab: (name: string) => void;
     editNote: (name: string, newname: string, newicon: string) => void;
+    configSet: (key: string, value: any) => void;
+    configGet: (key: string) => Promise<any>;
   }
 }
