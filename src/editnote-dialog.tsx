@@ -13,7 +13,7 @@ import { Input } from "./components/ui/input";
 import { useGlobalState } from "./components/globalstate-provider";
 import { useNote } from "./components/note-provider";
 
-const defaultIcon: string = "Paperclip";
+// const defaultIcon: string = "Paperclip";
 export default function EditNoteDialog({ children, tab }: { children: ReactNode, tab: {name: string, icon: string} }) {
     const { editNoteDialogOpen, toggleEditNoteDialog, NoteIcons, hasTab, setActiveTab, editTab } = useGlobalState();
     const noteIcons = Object.keys(NoteIcons);
@@ -90,7 +90,7 @@ export default function EditNoteDialog({ children, tab }: { children: ReactNode,
                             </Button>
                         </DropdownMenuTrigger>
 
-                        <DropdownMenuContent align="start">
+                        <DropdownMenuContent align="start" className="max-h-48 overflow-y-scroll">
                             <DropdownMenuLabel>Select an icon</DropdownMenuLabel>
 
                             <DropdownMenuGroup>

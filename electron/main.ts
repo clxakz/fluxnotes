@@ -59,6 +59,8 @@ app.on('activate', () => {
   }
 })
 
+// if (store.get("hardwareacceleration")) { app.disableHardwareAcceleration(); console.log("hwaccel on") };
+app.disableHardwareAcceleration()
 app.whenReady().then(() => {
     createWindow();
 

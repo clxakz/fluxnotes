@@ -9,19 +9,25 @@ import { DialogDescription } from "@radix-ui/react-dialog";
 
 export default function Settings({ children }: { children: ReactNode }) {
     const { setTheme, theme } = useTheme();
-    const { settingsOpen, toggleSettings } = useGlobalState();
+    const { settingsOpen, toggleSettings, configSet, configGet } = useGlobalState();
     
     function toggleTheme() {
         setTheme(theme === "light" ? "dark" : "light");
     }
 
+    // function toggleHwAccel() {
+    //     configSet("hardwareacceleration", !defaultValue_hwAccel);
+    // }
+
 
     const [defaultValue_darkMode, setDefaultValue_darkMode] = useState<boolean>(false);
+    // const [defaultValue_hwAccel, setDefaultValue_hwAccel] = useState<boolean>(false);
 
     // Set default values on mount
     useEffect(() => {
         setDefaultValue_darkMode(theme === "dark");
-    }, [theme])
+        // setDefaultValue_hwAccel(configGet("hardwareacceleration") ?? false)
+    }, [theme, /*configGet8*/])
 
     return (
         <Dialog open={settingsOpen} onOpenChange={toggleSettings}>
@@ -39,6 +45,11 @@ export default function Settings({ children }: { children: ReactNode }) {
                     <Label htmlFor="themeToggle">Dark mode</Label>
                     <Switch defaultChecked={defaultValue_darkMode} name="themeToggle" onClick={toggleTheme}/>
                 </div>
+
+                {/* <div className="flex items-center justify-between">
+                    <Label htmlFor="hwAccel">Hardware Acceleration</Label>
+                    <Switch defaultChecked={defaultValue_hwAccel} name="hwAccel" onClick={toggleHwAccel}/>
+                </div> */}
             </DialogContent>
         </Dialog>
     )

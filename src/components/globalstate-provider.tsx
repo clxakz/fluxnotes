@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from "react";
-import { Paperclip, Scroll } from "lucide-react";
+import { Aperture, Component, File, Clipboard, Asterisk, Award, BadgeCheck, Book, BookHeart, Bookmark, BookmarkCheck, Box, Braces, Brackets, Briefcase, Calendar, CalendarCheck, Car, CaseSensitive, Cast, ChartBar, ChartColumnDecreasing, ChartPie, Check, ChefHat, Chrome, Circle, CircleDollarSign, CirclePower, CircleUser, Clapperboard, ClipboardCopy, Clock, Cloud, Codepen, CodeXml, Coffee, Cog, Cone, Contact, Contrast, Cookie, Copy, Crosshair, CupSoda, Database, Diamond, Disc3, Dog, DollarSign, Download, DraftingCompass, Drill, Droplet, Eye, Facebook, NotebookText, Paperclip, Scroll, Send, StickyNote } from "lucide-react";
 import { useSidebar } from "./ui/sidebar";
 
 type TabType = {
@@ -68,9 +68,69 @@ export default function GlobalStateProvider({ children }: {children: ReactNode})
     const configGet = async (key: string) => { return await window.api.configGet(key) };
 
     const NoteIcons = {
-        Paperclip: <Paperclip/>,
-        Scroll: <Scroll />
-    }
+        Paperclip: <Paperclip />,
+        Scroll: <Scroll />,
+        NotebookText: <NotebookText />,
+        StickyNote: <StickyNote />,
+        Send: <Send />,
+        Book: <Book />,
+        Aperture: <Aperture />,
+        Asterisk: <Asterisk />,
+        Award: <Award />,
+        BadgeCheck: <BadgeCheck />,
+        BookHeart: <BookHeart />,
+        Braces: <Braces />,
+        Brackets: <Brackets />,
+        Briefcase: <Briefcase />,
+        Bookmark: <Bookmark />,
+        BookmarkCheck: <BookmarkCheck />,
+        Box: <Box />,
+        Calendar: <Calendar />,
+        CalendarCheck: <CalendarCheck />,
+        Car: <Car />,
+        CaseSensitive: <CaseSensitive />,
+        Cast: <Cast />,
+        Cat: <Cast />,
+        ChartBar: <ChartBar />,
+        ChartColumnDecreasing: <ChartColumnDecreasing />,
+        CharPie: <ChartPie />,
+        Check: <Check />,
+        ChefHat: <ChefHat />,
+        Chrome: <Chrome />,
+        Circle: <Circle />,
+        CircleDollarSign: <CircleDollarSign />,
+        CirclePower: <CirclePower />,
+        CircleUser: <CircleUser />,
+        Clapperboard: <Clapperboard />,
+        Clipboard: <Clipboard />,
+        ClipboardCopy: <ClipboardCopy />,
+        Clock: <Clock />,
+        Cloud: <Cloud />,
+        CodeXml: <CodeXml />,
+        Codepen: <Codepen />,
+        Coffee: <Coffee />,
+        Cog: <Cog />,
+        Component: <Component />,
+        Cone: <Cone />,
+        Contact: <Contact />,
+        Contrast: <Contrast />,
+        Cookie: <Cookie />,
+        Copy: <Copy />,
+        Crosshair: <Crosshair />,
+        CupSoda: <CupSoda />,
+        Database: <Database />,
+        Diamond: <Diamond />,
+        Disc3: <Disc3 />,
+        Dog: <Dog />,
+        DollarSign: <DollarSign />,
+        Download: <Download />,
+        DraftingCompass: <DraftingCompass />,
+        Droplet: <Droplet />,
+        Drill: <Drill />,
+        Eye: <Eye />,
+        Facebook: <Facebook />,
+        File: <File />,
+    };
 
     return (
         <GlobalStateContext.Provider value={{ configGet, configSet, editTab, sidebarCanClose, setSidebarCanClose, editNoteDialogOpen, toggleEditNoteDialog, editorText, insertText, clearEditor, tabs, addTab, removeTab, hasTab, NoteIcons, toggleSettings, settingsOpen, toggleNewNoteDialog, newNoteDialogOpen, openSidebar, closeSidebar, setActiveTab, activeTab }}>
