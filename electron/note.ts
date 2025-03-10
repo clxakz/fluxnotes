@@ -30,7 +30,7 @@ export class Note {
     async save() {
         const db: Record<string, NoteType> = await loadTabs();
 
-        console.log("saving: ", this.name, this.icon, this.text);
+        // console.log("saving: ", this.name, this.icon, this.text);
 
         db[this.name] = {
             icon: this.icon ?? db[this.name]?.icon,
@@ -42,13 +42,13 @@ export class Note {
 
     async load() {
         const db: Record<string, NoteType> = await loadTabs();
-        console.log("loading: ", this.name, this.icon, this.text);
+        // console.log("loading: ", this.name, this.icon, this.text);
         return db[this.name];
     }
 
     async edit(newname: string, newicon: string) {
         const db: Record<string, NoteType> = await loadTabs();
-        console.log("editing: ", this.name, this.icon, this.text, newname, newicon);
+        // console.log("editing: ", this.name, this.icon, this.text, newname, newicon);
         const note = db[this.name];
 
         delete db[this.name];
@@ -62,7 +62,7 @@ export class Note {
 
     async delete() {
         const db: Record<string, NoteType> = await loadTabs();
-        console.log("deleting: ", this.name, this.icon, this.text)
+        // console.log("deleting: ", this.name, this.icon, this.text)
         delete db[this.name];
         store.set('notes', db);
     }

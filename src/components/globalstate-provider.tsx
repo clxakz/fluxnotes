@@ -1,5 +1,5 @@
-import { createContext, ReactNode, useContext, useState } from "react";
-import { Aperture, Component, File, Clipboard, Asterisk, Award, BadgeCheck, Book, BookHeart, Bookmark, BookmarkCheck, Box, Braces, Brackets, Briefcase, Calendar, CalendarCheck, Car, CaseSensitive, Cast, ChartBar, ChartColumnDecreasing, ChartPie, Check, ChefHat, Chrome, Circle, CircleDollarSign, CirclePower, CircleUser, Clapperboard, ClipboardCopy, Clock, Cloud, Codepen, CodeXml, Coffee, Cog, Cone, Contact, Contrast, Cookie, Copy, Crosshair, CupSoda, Database, Diamond, Disc3, Dog, DollarSign, Download, DraftingCompass, Drill, Droplet, Eye, Facebook, NotebookText, Paperclip, Scroll, Send, StickyNote } from "lucide-react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { Aperture, Component, Lock, Text ,File, Clipboard, Asterisk, Award, BadgeCheck, Book, BookHeart, Bookmark, BookmarkCheck, Box, Braces, Brackets, Briefcase, Calendar, CalendarCheck, Car, CaseSensitive, Cast, ChartBar, ChartColumnDecreasing, ChartPie, Check, ChefHat, Chrome, Circle, CircleDollarSign, CirclePower, CircleUser, Clapperboard, ClipboardCopy, Clock, Cloud, Codepen, CodeXml, Coffee, Cog, Cone, Contact, Contrast, Cookie, Copy, Crosshair, CupSoda, Database, Diamond, Disc3, Dog, DollarSign, Download, DraftingCompass, Drill, Droplet, Eye, Facebook, NotebookText, Paperclip, Scroll, Send, StickyNote, Activity, AlarmClock, AtSign, AudioLines, Blocks, Key, Keyboard, KeyRound, Landmark, Laugh, List, ListChecks, Loader, LockKeyhole, Magnet, Mail, MapPin, Megaphone, MessageCircle, MessageCircleDashed, MessageSquare, Mic, Music4, Parentheses, PartyPopper, Pencil, Pin, Plane, Printer, Radical, Radio, Rainbow, ReceiptText, RotateCw, Route, Rss, Scale3d, ScanLine, Search, Signal, SquareAsterisk, TrafficCone, Trash2, Tv, TvMinimal, Twitter, Type, UsersRound, Wallet, WalletCards, WalletMinimal, Wallpaper, Wand, Warehouse, Watch, Waves, Webhook, WholeWord, Wrench, Youtube, Zap, ZoomIn, ZoomOut } from "lucide-react";
 import { useSidebar } from "./ui/sidebar";
 
 type TabType = {
@@ -49,6 +49,11 @@ export default function GlobalStateProvider({ children }: {children: ReactNode})
     const { setOpen, open } = useSidebar();
     const openSidebar = () => setOpen(true);
     const closeSidebar = () => setOpen(sidebarCanClose ? false : open);
+
+    // Close sidebar by default
+    useEffect(() => {
+        setOpen(false);
+    }, [])
 
     const [sidebarCanClose, setSidebarCanClose] = useState<boolean>(true);
 
@@ -130,6 +135,71 @@ export default function GlobalStateProvider({ children }: {children: ReactNode})
         Eye: <Eye />,
         Facebook: <Facebook />,
         File: <File />,
+        Key: <Key />,
+        KeyRound: <KeyRound />,
+        Lock: <Lock />,
+        LockKeyhole: <LockKeyhole />,
+        SquareAsterisk: <SquareAsterisk />,
+        Magnet: <Magnet />,
+        Pin: <Pin />,
+        Blocks: <Blocks />,
+        AlarmClock: <AlarmClock />,
+        RotateCw: <RotateCw />,
+        AtSign: <AtSign />,
+        Mail: <Mail />,
+        MessageCircle: <MessageCircle />,
+        MessageCircleDashed: <MessageCircleDashed />,
+        MessageSquare: <MessageSquare />,
+        Text: <Text />,
+        Rss: <Rss />,
+        List: <List />,
+        AudioLines: <AudioLines />,
+        Mic: <Mic />,
+        ListChecks: <ListChecks />,
+        Activity: <Activity />,
+        Laugh: <Laugh />,
+        Keyboard: <Keyboard />,
+        Landmark: <Landmark />,
+        Loader: <Loader />,
+        MapPin: <MapPin />,
+        Megaphone: <Megaphone />,
+        Music4: <Music4 />,
+        Parentheses: <Parentheses />,
+        PartyPopper: <PartyPopper />,
+        Pencil: <Pencil />,
+        Plane: <Plane />,
+        Printer: <Printer />,
+        Radical: <Radical />,
+        Radio: <Radio />,
+        Rainbow: <Rainbow />,
+        ReceiptText: <ReceiptText />,
+        Route: <Route />,
+        Scale3d: <Scale3d />,
+        ScanLine: <ScanLine />,
+        Search: <Search />,
+        Signal: <Signal />,
+        TrafficCone: <TrafficCone />,
+        Trash2: <Trash2 />,
+        Tv: <Tv />,
+        TvMinimal: <TvMinimal />,
+        Twitter: <Twitter />,
+        Type: <Type />,
+        UsersRound: <UsersRound />,
+        Wallet: <Wallet />,
+        WalletCards: <WalletCards />,
+        WalletMinimal: <WalletMinimal />,
+        Wallpaper: <Wallpaper />,
+        Wand: <Wand />,
+        Warehouse: <Warehouse />,
+        Watch: <Watch />,
+        Waves: <Waves />,
+        Webhook: <Webhook />,
+        WholeWord: <WholeWord />,
+        Wrench: <Wrench />,
+        Youtube: <Youtube />,
+        Zap: <Zap />,
+        ZoomIn: <ZoomIn />,
+        ZoomOut: <ZoomOut />,
     };
 
     return (

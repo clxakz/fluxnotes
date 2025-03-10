@@ -27,6 +27,8 @@ function createWindow() {
       color: "rgba(255, 255, 255, 0)",
       symbolColor: "rgb(128, 128, 128)"
     },
+    minHeight: 480,
+    minWidth: 770,
 
     webPreferences: {
       preload: path.join(__dirname, 'preload.mjs'),
@@ -100,7 +102,7 @@ app.whenReady().then(() => {
     });
 
     ipcMain.handle("config-get", async (_event, key: string) => {
-        console.log("getting")
+        // console.log("getting")
         return await store.get(key);
     });
 });

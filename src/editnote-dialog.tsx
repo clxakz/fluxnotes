@@ -90,7 +90,7 @@ export default function EditNoteDialog({ children, tab }: { children: ReactNode,
                             </Button>
                         </DropdownMenuTrigger>
 
-                        <DropdownMenuContent align="start" className="max-h-48 overflow-y-scroll">
+                        <DropdownMenuContent id="NoSrollbar" align="start" className="max-h-[200px] overflow-y-scroll">
                             <DropdownMenuLabel>Select an icon</DropdownMenuLabel>
 
                             <DropdownMenuGroup>

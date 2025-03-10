@@ -9,25 +9,33 @@ import { DialogDescription } from "@radix-ui/react-dialog";
 
 export default function Settings({ children }: { children: ReactNode }) {
     const { setTheme, theme } = useTheme();
-    const { settingsOpen, toggleSettings, configSet, configGet } = useGlobalState();
+    const { settingsOpen, toggleSettings, configGet, configSet } = useGlobalState();
     
     function toggleTheme() {
         setTheme(theme === "light" ? "dark" : "light");
     }
 
-    // function toggleHwAccel() {
-    //     configSet("hardwareacceleration", !defaultValue_hwAccel);
-    // }
+    async function toggleSpellChecking() {
+        const result = await configGet("spellchecking");
+        configSet("spellchecking", !result);
+    }
+
 
 
     const [defaultValue_darkMode, setDefaultValue_darkMode] = useState<boolean>(false);
-    // const [defaultValue_hwAccel, setDefaultValue_hwAccel] = useState<boolean>(false);
+    const [defaultValue_spellChecking, setDefaultValue_spellChecking] = useState<boolean>(false);
+
 
     // Set default values on mount
     useEffect(() => {
         setDefaultValue_darkMode(theme === "dark");
-        // setDefaultValue_hwAccel(configGet("hardwareacceleration") ?? false)
-    }, [theme, /*configGet8*/])
+
+        async function handle() {
+            setDefaultValue_spellChecking(await configGet("spellchecking"));
+        }
+
+        handle();
+    }, [theme, configGet])
 
     return (
         <Dialog open={settingsOpen} onOpenChange={toggleSettings}>
@@ -46,10 +54,10 @@ export default function Settings({ children }: { children: ReactNode }) {
                     <Switch defaultChecked={defaultValue_darkMode} name="themeToggle" onClick={toggleTheme}/>
                 </div>
 
-                {/* <div className="flex items-center justify-between">
-                    <Label htmlFor="hwAccel">Hardware Acceleration</Label>
-                    <Switch defaultChecked={defaultValue_hwAccel} name="hwAccel" onClick={toggleHwAccel}/>
-                </div> */}
+                <div className="flex items-center justify-between">
+                    <Label htmlFor="spellCheckingToggle">Spell Checking</Label>
+                    <Switch defaultChecked={defaultValue_spellChecking} name="spellCheckingToggle" onClick={toggleSpellChecking}/>
+                </div>
             </DialogContent>
         </Dialog>
     )

@@ -9,8 +9,8 @@ import { useNote } from "@/components/note-provider";
 
 const defaultIcon: string = "Paperclip";
 export default function NewNoteDialog({ children }: { children: ReactNode }) {
-    const { newNoteDialogOpen, toggleNewNoteDialog, NoteIcons, hasTab, setActiveTab, activeTab, editorText } = useGlobalState();
-    const { createNote, saveNote } = useNote();
+    const { newNoteDialogOpen, toggleNewNoteDialog, NoteIcons, hasTab, setActiveTab } = useGlobalState();
+    const { createNote } = useNote();
     const noteIcons = Object.keys(NoteIcons);
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -94,7 +94,7 @@ export default function NewNoteDialog({ children }: { children: ReactNode }) {
                             </Button>
                         </DropdownMenuTrigger>
 
-                        <DropdownMenuContent align="start" className="max-h-48 overflow-y-scroll">
+                        <DropdownMenuContent id="NoSrollbar" align="start" className="max-h-[200px] overflow-y-scroll">
                             <DropdownMenuLabel>Select an icon</DropdownMenuLabel>
 
                             <DropdownMenuGroup>
