@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { useTheme } from "@/components/theme-provider";
 import { useGlobalState } from "@/components/globalstate-provider";
 import { DialogDescription } from "@radix-ui/react-dialog";
+import packageJson from '../package.json';
 
 
 export default function Settings({ children }: { children: ReactNode }) {
@@ -48,6 +49,7 @@ export default function Settings({ children }: { children: ReactNode }) {
                 <DialogHeader>
                     <DialogTitle>Settings</DialogTitle>
                 </DialogHeader>
+                <DialogDescription className="text-xs text-muted-foreground">V{packageJson.version}</DialogDescription>
 
                 <div className="flex items-center justify-between">
                     <Label htmlFor="themeToggle">Dark mode</Label>

@@ -21,16 +21,18 @@ function Editor() {
        }
    }, [activeTab]);
 
-   useEffect(() => {
-      async function handle() {
-        const result = await configGet("spellchecking");
-        if (textAreaRef.current) {
-          textAreaRef.current.spellcheck = result;
-        }
-      }
 
-      handle();
-   }, [configGet])
+   // Handle spell checking from config
+   useEffect(() => {
+       async function handle() {
+           const result = await configGet("spellchecking");
+           if (textAreaRef.current) {
+               textAreaRef.current.spellcheck = result;
+           }
+       }
+
+       handle();
+   }, [configGet]);
 
   return (
     <div className="w-full h-full overflow-hidden pl-1">

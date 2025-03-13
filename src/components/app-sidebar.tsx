@@ -34,7 +34,7 @@ export function AppSidebar() {
 
             if (!result) {
               addTab({ name: "Readme", icon: "Paperclip" });
-              saveNote("Readme", "Thank's for installing FLuxnotes! Create your first note by pressing the plus button\nin the sidebar or using ctrl+n");
+              saveNote("Readme", "Thank's for installing FLuxnotes. Create your first note using the plus button\nin the sidebar or using ctrl+n");
               editNote("Readme", "Readme", "Paperclip");
               
               configSet("firststartup", true);
