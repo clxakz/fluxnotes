@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain } from 'electron'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import { loadTabs, Note } from './note'
+import { autoUpdater } from 'electron-updater'
 import Store from 'electron-store';
 const store = new Store({ name: "config" });
 
@@ -48,23 +49,29 @@ function createWindow() {
   win.setMenu(null);
 }
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-    win = null
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
+    app.quit();
+    win = null;
   }
-})
+});
 
-app.on('activate', () => {
+app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow()
+    createWindow();
   }
-})
+});
+
+app.on("quit", (_event) => {
+  autoUpdater.quitAndInstall(true, true);
+});
 
 // if (store.get("hardwareacceleration")) { app.disableHardwareAcceleration(); console.log("hwaccel on") };
 app.disableHardwareAcceleration()
 app.whenReady().then(() => {
     createWindow();
+
+    autoUpdater.checkForUpdatesAndNotify();
 
     ipcMain.on("note-create", (_event, name: string, icon: string) => {
         console.log("on create main: ", name, icon)

@@ -7,6 +7,11 @@
     "name": "clxakz",
     "email": "zolotarjovdavid15@gmail.com"
   },
+  "repository": "https://github.com/clxakz/fluxnotes",
+  "publish": {
+    "provider": "github",
+    "releaseType": "release"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && electron-builder"
@@ -23,6 +28,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "electron-store": "^10.0.1",
+    "electron-updater": "^6.3.9",
     "lucide-react": "^0.476.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
