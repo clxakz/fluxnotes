@@ -50,7 +50,7 @@ export default function Settings({ children }: { children: ReactNode }) {
                     <DialogTitle>Settings</DialogTitle>
                 </DialogHeader>
                 <DialogDescription className="text-xs text-muted-foreground">V{packageJson.version}</DialogDescription>
-                <p>Updater working</p>
+                {/* <p>Updater working</p> */}
 
                 <div className="flex items-center justify-between">
                     <Label htmlFor="themeToggle">Dark mode</Label>

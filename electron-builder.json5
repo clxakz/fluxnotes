@@ -40,5 +40,10 @@
       "AppImage"
     ],
     "artifactName": "${productName}-Linux-${version}.${ext}"
+  },
+  "publish": {
+    "provider": "github",
+    "owner": "clxakz",
+    "repo": "fluxnotes"
   }
 }

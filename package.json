@@ -8,10 +8,6 @@
     "email": "zolotarjovdavid15@gmail.com"
   },
   "repository": "https://github.com/clxakz/fluxnotes",
-  "publish": {
-    "provider": "github",
-    "releaseType": "release"
-  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && electron-builder"

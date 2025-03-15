@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron'
+import { app, BrowserWindow, ipcMain, dialog } from 'electron'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import { loadTabs, Note } from './note'
@@ -62,9 +62,18 @@ app.on("activate", () => {
   }
 });
 
-app.on("quit", (_event) => {
-  autoUpdater.quitAndInstall(true, true);
-});
+autoUpdater.on("update-downloaded", (info) => {
+  dialog.showMessageBox({
+    type: "info",
+    title: "New Update Available",
+    message: `New update available: ${info}`,
+    buttons: ["Restart Now", "Later"]
+  }).then((result) => {
+    if (result.response === 0) {
+      autoUpdater.quitAndInstall();
+    }
+  })
+})
 
 // if (store.get("hardwareacceleration")) { app.disableHardwareAcceleration(); console.log("hwaccel on") };
 app.disableHardwareAcceleration()
